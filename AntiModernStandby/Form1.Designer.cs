@@ -32,6 +32,7 @@ namespace AntiModernStandby
             this.radioButtonNone = new System.Windows.Forms.RadioButton();
             this.radioButtonSystemRequired = new System.Windows.Forms.RadioButton();
             this.radioButtonDisplayRequired = new System.Windows.Forms.RadioButton();
+            this.radioButtonDisplayRequiredMouseMove = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // radioButtonNone
@@ -69,11 +70,23 @@ namespace AntiModernStandby
             this.radioButtonDisplayRequired.UseVisualStyleBackColor = true;
             this.radioButtonDisplayRequired.CheckedChanged += new System.EventHandler(this.radioButtonDisplayRequired_CheckedChanged);
             // 
+            // radioButtonDisplayRequiredMouseMove
+            // 
+            this.radioButtonDisplayRequiredMouseMove.AutoSize = true;
+            this.radioButtonDisplayRequiredMouseMove.Location = new System.Drawing.Point(12, 117);
+            this.radioButtonDisplayRequiredMouseMove.Name = "radioButtonDisplayRequiredMouseMove";
+            this.radioButtonDisplayRequiredMouseMove.Size = new System.Drawing.Size(320, 29);
+            this.radioButtonDisplayRequiredMouseMove.TabIndex = 4;
+            this.radioButtonDisplayRequiredMouseMove.Text = "DISPLAY_REQUIRED_MOUSE_MOVE";
+            this.radioButtonDisplayRequiredMouseMove.UseVisualStyleBackColor = true;
+            this.radioButtonDisplayRequiredMouseMove.CheckedChanged += new System.EventHandler(this.radioButtonDisplayRequired_CheckedChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 139);
+            this.ClientSize = new System.Drawing.Size(370, 177);
+            this.Controls.Add(this.radioButtonDisplayRequiredMouseMove);
             this.Controls.Add(this.radioButtonDisplayRequired);
             this.Controls.Add(this.radioButtonNone);
             this.Controls.Add(this.radioButtonSystemRequired);
@@ -90,6 +103,7 @@ namespace AntiModernStandby
         private System.Windows.Forms.RadioButton radioButtonNone;
         private System.Windows.Forms.RadioButton radioButtonSystemRequired;
         private System.Windows.Forms.RadioButton radioButtonDisplayRequired;
+        private System.Windows.Forms.RadioButton radioButtonDisplayRequiredMouseMove;
     }
 }
 

@@ -22,6 +22,8 @@ namespace AntiModernStandby
 
         private Timer timer;
         private StreamWriter writer;
+
+        private Random random = new Random();
         
         private void log(Object o)
         {
@@ -57,6 +59,15 @@ namespace AntiModernStandby
                 //System.Diagnostics.Debug.WriteLine(dt);
                 //writer.WriteLine(dt);
                 log(dt);
+
+                if(radioButtonDisplayRequiredMouseMove.Checked)
+                {
+                    MouseInputWrapper.SendMouseMove(
+
+                        System.Windows.Forms.Cursor.Position.X + random.Next(1, 20) - 10,
+                        System.Windows.Forms.Cursor.Position.Y + random.Next(1, 20) - 10,
+                        System.Windows.Forms.Screen.PrimaryScreen);
+                }
             });
 
             writer = new StreamWriter(Application.StartupPath + "\\AntiModernStandby.log");
@@ -87,7 +98,7 @@ namespace AntiModernStandby
 
         private void radioButtonDisplayRequired_CheckedChanged(object sender, EventArgs e)
         {
-            log("-- ES_DISPLAY_REQUIRED");
+            log("-- ES_DISPLAY_REQUIRED_MOUSE_MOVE");
 
             uint result = SetThreadExecutionState(ES_DISPLAY_REQUIRED | ES_CONTINUOUS);
             timer.Enabled = true;
