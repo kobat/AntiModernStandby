@@ -24,6 +24,8 @@ namespace AntiModernStandby
         private StreamWriter writer;
 
         private Random random = new Random();
+        private int lastMouseX = -1;
+        private int lastMouseY = -1;
         
         private void log(Object o)
         {
@@ -56,18 +58,40 @@ namespace AntiModernStandby
             timer.Interval = 30 * 1000;
             timer.Tick += new EventHandler((ss, ee) => {
                 var dt = DateTime.Now;
-                //System.Diagnostics.Debug.WriteLine(dt);
-                //writer.WriteLine(dt);
-                log(dt);
+                var logMouseMove = "";
 
-                if(radioButtonDisplayRequiredMouseMove.Checked)
+                int currentMouseX = System.Windows.Forms.Cursor.Position.X;
+                int currentMouseY = System.Windows.Forms.Cursor.Position.Y;
+
+                if (radioButtonDisplayRequiredMouseMove.Checked)
                 {
-                    MouseInputWrapper.SendMouseMove(
+                    if(currentMouseX == lastMouseX && currentMouseY == lastMouseY)
+                    {
+                        int newX = currentMouseX + random.Next(1, 20) - 10;
+                        int newY = currentMouseY + random.Next(1, 20) - 10;
+                        MouseInputWrapper.SendMouseMove(newX, newY, System.Windows.Forms.Screen.PrimaryScreen);
 
-                        System.Windows.Forms.Cursor.Position.X + random.Next(1, 20) - 10,
-                        System.Windows.Forms.Cursor.Position.Y + random.Next(1, 20) - 10,
-                        System.Windows.Forms.Screen.PrimaryScreen);
+                        logMouseMove = $", mouse move: last=current=({lastMouseX},{lastMouseY}), new=({newX},{newY})";
+
+                        lastMouseX = newX;
+                        lastMouseY = newY;
+                    }
+                    else
+                    {
+                        logMouseMove = $", no mouse move: last=({lastMouseX},{lastMouseY}), current=({currentMouseX},{currentMouseY})";
+
+                        lastMouseX = currentMouseX;
+                        lastMouseY = currentMouseY;
+                    }
                 }
+                else
+                {
+                    lastMouseX = currentMouseX;
+                    lastMouseY = currentMouseY;
+                }
+
+
+                log(dt.ToString() + logMouseMove);
             });
 
             writer = new StreamWriter(Application.StartupPath + "\\AntiModernStandby.log");
@@ -97,6 +121,14 @@ namespace AntiModernStandby
         }
 
         private void radioButtonDisplayRequired_CheckedChanged(object sender, EventArgs e)
+        {
+            log("-- ES_DISPLAY_REQUIRED");
+
+            uint result = SetThreadExecutionState(ES_DISPLAY_REQUIRED | ES_CONTINUOUS);
+            timer.Enabled = true;
+        }
+
+        private void radioButtonDisplayRequiredMouseMove_CheckedChanged(object sender, EventArgs e)
         {
             log("-- ES_DISPLAY_REQUIRED_MOUSE_MOVE");
 

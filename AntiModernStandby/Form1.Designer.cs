@@ -79,7 +79,7 @@ namespace AntiModernStandby
             this.radioButtonDisplayRequiredMouseMove.TabIndex = 4;
             this.radioButtonDisplayRequiredMouseMove.Text = "DISPLAY_REQUIRED_MOUSE_MOVE";
             this.radioButtonDisplayRequiredMouseMove.UseVisualStyleBackColor = true;
-            this.radioButtonDisplayRequiredMouseMove.CheckedChanged += new System.EventHandler(this.radioButtonDisplayRequired_CheckedChanged);
+            this.radioButtonDisplayRequiredMouseMove.CheckedChanged += new System.EventHandler(this.radioButtonDisplayRequiredMouseMove_CheckedChanged);
             // 
             // FormMain
             // 
